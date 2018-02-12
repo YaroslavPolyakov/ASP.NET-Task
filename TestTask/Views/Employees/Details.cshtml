@@ -1,0 +1,55 @@
+﻿@model Tuple <TestTask.Models.Employee,TestTask.Models.EmployeeTask>
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item1.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item1.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item1.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item1.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item1.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item1.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item2.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item2.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(tuple => tuple.Item2.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(tuple => tuple.Item2.Comments)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
