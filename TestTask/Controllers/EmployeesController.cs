@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TestTask.Models;
@@ -15,42 +16,27 @@ namespace TestTask.Controllers
         private TaskUserContext db = new TaskUserContext();
 
         // GET: Employees
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(db.Employees.ToList());
+            return View(await db.Employees.ToListAsync());
         }
 
-        // GET: Employees/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-
-        //    Employee employee = db.Employees.Find(id);
-        //    if (employee == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    var tuple = new Tuple<Employee, EmployeeTask>(employee, new EmployeeTask());
-        //    return View(tuple);
-        //}
         public ActionResult Details(int? id)
         {
-            var TU = new Tuple<Employee, EmployeeTask, SpentTime>(new Employee(), new EmployeeTask(), new SpentTime());
-            Employee employee = db.Employees.Find(id);
-            EmployeeTask employeeTask = db.Tasks.Find(id);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            var employee = db.Employees.Include(x => x.SpentTime).
+                Include(x => x.SpentTime.Select(q => q.EmployeeTask))
+                .FirstOrDefault(x => x.Id == id);
+
             if (employee == null)
             {
                 return HttpNotFound();
             }
-            var tuple = new Tuple<Employee, EmployeeTask>(employee, employeeTask);
-            return View(tuple);
+            return View(employee);
         }
 
         // GET: Employees/Create

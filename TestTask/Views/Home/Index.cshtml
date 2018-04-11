@@ -1,6 +1,6 @@
-﻿@{
-    Layout = null;
-    
+﻿@using TestTask.Models
+@{
+    ViewBag.Title = "Index";
 }
 <!DOCTYPE html>
 
@@ -11,8 +11,8 @@
 </head>
 <body>
     <ul>
-        <li><a href="/Employees">Employees</a></li>
-        <li><a href="/EmployeeTasks">Tasks</a></li>
+        <li><h3><a href="/Employees">Employees</a></h3></li>
+        <li><h3><a href="/EmployeeTasks">Tasks</a></h3></li>
     </ul>
    <div>
         <h3>Отчет</h3>
@@ -29,16 +29,16 @@
                </th>
            </tr>
            
-               @foreach (var a in (IEnumerable<TestTask.Models.SpentTime>)ViewBag.SpentTimes)
+               @foreach (var a in (IEnumerable<ReportModel>)ViewBag.Data)
                    {
                         <tr>
 
                            <td>
-                               @a.EmployeeTask
+                               @a.TaskName
                            </td>
 
                            <td>
-                               @a.Employee
+                               @a.EmployeeName
                            </td>
 
                            <td>

@@ -1,4 +1,4 @@
-﻿@model Tuple<TestTask.Models.EmployeeTask, TestTask.Models.Employee, TestTask.Models.SpentTime>
+﻿@model TestTask.Models.EmployeeTask
 
 @{
     ViewBag.Title = "Details";
@@ -9,46 +9,55 @@
 <div>
     <h4>EmployeeTask</h4>
     <hr />
-    <table>
+    @*<table>
         <tr>
             <td>
-            @Html.DisplayNameFor(tuple => tuple.Item1.Name)
-             </td>
-
-        <td>
-            @Html.DisplayFor(tuple => tuple.Item1.Name)
-        </td>
-            </tr>
-
-        <tr>
-            <td>
-            @Html.DisplayNameFor(tuple => tuple.Item1.Comments)
-        </td>
-
-        <td>
-            @Html.DisplayFor(tuple => tuple.Item1.Comments)
-        </td>
-            </tr>
-        <tr>
-            <td>
-            @Html.DisplayNameFor(tuple => tuple.Item2.FullName)
-        </td>
-
-        <td>
-            @Html.DisplayFor(tuple => tuple.Item2.FullName)
-        </td>
-            </tr>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(tuple => tuple.Item3.Duration)
+                @Html.DisplayNameFor(x => x.Name)
             </td>
+
             <td>
-                @Html.DisplayFor(tuple => tuple.Item3.Duration)
+                @Html.DisplayFor(x => x.Name)
             </td>
         </tr>
-    </table>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(x => x.Comments)
+            </td>
+
+            <td>
+                @Html.DisplayFor(x => x.Comments)
+            </td>
+        </tr>
+        
+    </table>*@
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(x => x.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(x => x.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(x => x.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(x => x.Comments)
+        </dd>
+    </dl>
+
+    
+    <ul>
+        @foreach (var data in Model.SpentTime)
+        {
+            <li>Employee Name: @data.Employee.FullName | | Duration: @data.Duration</li>
+        }
+    </ul>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

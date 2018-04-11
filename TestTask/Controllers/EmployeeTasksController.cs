@@ -23,19 +23,19 @@ namespace TestTask.Controllers
         // GET: EmployeeTasks/Details/5
         public ActionResult Details(int? id)
         {
-            Employee employee = db.Employees.Find(id);
-            EmployeeTask employeeTask = db.Tasks.Find(id);
-            SpentTime spentTime = db.SpentTimes.Find(id);
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            var employeeTask = db.Tasks.Include(x => x.SpentTime).Include(x => x.SpentTime.Select(q => q.Employee)).FirstOrDefault(x =>x.Id == id);
+
             if (employeeTask == null)
             {
                 return HttpNotFound();
             }
-            var tuple = new Tuple<EmployeeTask, Employee, SpentTime>(employeeTask, employee, spentTime);
-            return View(tuple);
+            return View(employeeTask);
         }
 
         // GET: EmployeeTasks/Create

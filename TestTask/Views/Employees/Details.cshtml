@@ -1,4 +1,4 @@
-﻿@model Tuple <TestTask.Models.Employee,TestTask.Models.EmployeeTask>
+﻿@model TestTask.Models.Employee
 @{
     ViewBag.Title = "Details";
 }
@@ -10,46 +10,38 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item1.FullName)
+            @Html.DisplayNameFor(x => x.FullName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(tuple => tuple.Item1.FullName)
+            @Html.DisplayFor(x => x.FullName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item1.Address)
+            @Html.DisplayNameFor(x => x.Address)
         </dt>
 
         <dd>
-            @Html.DisplayFor(tuple => tuple.Item1.Address)
+            @Html.DisplayFor(x => x.Address)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item1.Phone)
+            @Html.DisplayNameFor(x => x.Phone)
         </dt>
 
         <dd>
-            @Html.DisplayFor(tuple => tuple.Item1.Phone)
+            @Html.DisplayFor(x => x.Phone)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item2.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item2.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(tuple => tuple.Item2.Comments)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(tuple => tuple.Item2.Comments)
-        </dd>
-
     </dl>
+    
+    <ul>
+        @foreach (var data in Model.SpentTime)
+        {
+            <li>Task Name: @data.EmployeeTask.Name | Comment: @data.EmployeeTask.Comments | Duration: @data.Duration</li>
+        }
+    </ul>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
